@@ -1,0 +1,65 @@
+//Program wczytuje ciąg cyfr, następnie zmienia położenie servonapędu w określonym przedziale zaczynająć zawsze od 0, jak w klasycznym telefonie z obrotową tarczą.
+//Przykład: 531555132: 0 - 5 - 0 - 3 - 0 - 1 - 0...... 
+//#include <StandardCplusplus.h>
+
+int numbers[9];
+String phone;
+String phone_s = "";
+boolean not_number = false;
+int phone_2; 
+int iterator;
+int digits[9];
+
+
+void setup() {
+  
+  // put your setup code here, to run once:
+  iterator = 0;
+  Serial.begin(9600);
+  
+
+}
+
+void loop() {
+
+ cycle();
+ //Serial.println(phone);
+ //Serial.println("End of loop");
+ 
+ 
+}
+
+void cycle(){
+  //Serial.println("Enter phone number");
+  while( Serial.available() == 0){}
+  phone = Serial.readString();
+  for(int i=0;i<phone.length()-1;i++){
+    digits[i] = phone[i] - 48;
+    Serial.print(phone[i]-48);
+    //Teraz ściągnąć dane do tablicy
+    
+    }
+    Serial.println("");
+    for (int j=0;j<phone.length()-1;j++){
+      Serial.print("Number:");
+      
+      Serial.print(j);
+      Serial.println(digits[j]);
+    }
+}
+//void cycle(){
+//  //Serial.println("Enter phone number");
+//  while( Serial.available() == 0){}
+//  phone = Serial.read();
+//  if (phone == 'n') iterator = 0;
+//  if (phone != 10 and phone != 'n'){
+//    numbers[iterator] = (int) phone; 
+//    iterator += 1;
+//    Serial.print("Number:");
+//    Serial.println(phone-48);
+//  }
+//  for(int i=0;i<iterator;i++){
+//    Serial.print(numbers[i]-48);
+//    }
+//    Serial.println("");
+// }
