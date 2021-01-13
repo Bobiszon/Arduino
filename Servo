@@ -1,7 +1,9 @@
+#include <Servo.h>
+
 //Program wczytuje ciąg cyfr, następnie zmienia położenie servonapędu w określonym przedziale zaczynająć zawsze od 0, jak w klasycznym telefonie z obrotową tarczą.
 //Przykład: 531555132: 0 - 5 - 0 - 3 - 0 - 1 - 0...... 
 //#include <StandardCplusplus.h>
-#include<servo.h>
+
 
 Servo myservo;
 
@@ -9,9 +11,6 @@ Servo myservo;
 
 int numbers[9];
 String phone;
-String phone_s = "";
-boolean not_number = false;
-int phone_2; 
 int iterator;
 const int SIZE = 9;
 int digits[SIZE];
@@ -27,34 +26,7 @@ void setup() {
 void loop() {
 
  cycle();
- 
- for(int k;k<SIZE;k++){
- 
- if (digits[k] == 1) angle = 20;
- else if (digits[k] == 2) angle = 40;
- else if (digits[k] == 3) angle = 60;
- else if (digits[k] == 4) angle = 80;
- else if (digits[k] == 5) angle = 100;
- else if (digits[k] == 6) angle = 120;
- else if (digits[k] == 7) angle = 140;
- else if (digits[k] == 8) angle = 160;
- else  angle = 180;
- 
- myservo.write(angle);
- delay(1000);
- myservo.write(0);
- delay(1000);
- 
- }
- 
-  myservo.write(90);
-  delay(1000);
-  myservo.write(180);
-  delay(1000);
-  myservo.write(0);
-  delay(1000);
-  
-  
+ motor();
 }
 
 void cycle(){
@@ -65,15 +37,37 @@ void cycle(){
     digits[i] = phone[i] - 48;
     Serial.print(phone[i]-48);
     //Teraz ściągnąć dane do tablicy
-    
     }
+    int i=0;
     Serial.println("");
     for (int j=0;j<phone.length()-1;j++){
       Serial.print("Number:");
-      
       Serial.print(j);
       Serial.println(digits[j]);
     }
+    int j=0;
+}
+void motor(){
+  int k = 0;
+  for(k;k<SIZE;k++){
+   Serial.write(k);
+    if (digits[k] == 1) angle = 20;
+    else if (digits[k] == 2) angle = 40;
+    else if (digits[k] == 3) angle = 60;
+    else if (digits[k] == 4) angle = 80;
+    else if (digits[k] == 5) angle = 100;
+    else if (digits[k] == 6) angle = 120;
+    else if (digits[k] == 7) angle = 140;
+    else if (digits[k] == 8) angle = 160;
+    else if (digits[k] == 9) angle = 210;
+ 
+    myservo.write(angle);
+    delay(500);
+    myservo.write(0);
+    delay(500);
+   
+  //else k=0;
+ }
 }
 //void cycle(){
 //  //Serial.println("Enter phone number");
