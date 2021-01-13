@@ -1,6 +1,11 @@
 //Program wczytuje ciąg cyfr, następnie zmienia położenie servonapędu w określonym przedziale zaczynająć zawsze od 0, jak w klasycznym telefonie z obrotową tarczą.
 //Przykład: 531555132: 0 - 5 - 0 - 3 - 0 - 1 - 0...... 
 //#include <StandardCplusplus.h>
+#include<servo.h>
+
+Servo myservo;
+
+#define servoPin 9
 
 int numbers[9];
 String phone;
@@ -8,25 +13,48 @@ String phone_s = "";
 boolean not_number = false;
 int phone_2; 
 int iterator;
-int digits[9];
-
+const int SIZE = 9;
+int digits[SIZE];
+int angle = 0;
 
 void setup() {
-  
   // put your setup code here, to run once:
   iterator = 0;
   Serial.begin(9600);
-  
-
+  myservo.attach(servoPin);
 }
 
 void loop() {
 
  cycle();
- //Serial.println(phone);
- //Serial.println("End of loop");
  
+ for(int k;k<SIZE;k++){
  
+ if (digits[k] == 1) angle = 20;
+ else if (digits[k] == 2) angle = 40;
+ else if (digits[k] == 3) angle = 60;
+ else if (digits[k] == 4) angle = 80;
+ else if (digits[k] == 5) angle = 100;
+ else if (digits[k] == 6) angle = 120;
+ else if (digits[k] == 7) angle = 140;
+ else if (digits[k] == 8) angle = 160;
+ else  angle = 180;
+ 
+ myservo.write(angle);
+ delay(1000);
+ myservo.write(0);
+ delay(1000);
+ 
+ }
+ 
+  myservo.write(90);
+  delay(1000);
+  myservo.write(180);
+  delay(1000);
+  myservo.write(0);
+  delay(1000);
+  
+  
 }
 
 void cycle(){
